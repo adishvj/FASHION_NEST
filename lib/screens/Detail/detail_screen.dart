@@ -31,7 +31,9 @@ class _DetailScreenState extends State<DetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // for back button share and favorite,
-            DetailAppBar(product: widget.product,),
+            DetailAppBar(
+              product: widget.product,
+            ),
             // for detail image slider
             MyImageSlider(
               image: widget.product.image,
@@ -129,9 +131,11 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                     ),
                   ),
-                   const SizedBox(height: 25),
-                   // for description
-                   Description(description: widget.product.description,)
+                  const SizedBox(height: 25),
+                  // for description
+                  Description(
+                    description: widget.product.description,
+                  )
                 ],
               ),
             )

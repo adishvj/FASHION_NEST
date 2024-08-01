@@ -23,8 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch products when initializing the screen
-    context.read<HomeViewModel>().fetchProducts();
+    // Fetch products when initializing the screen in a post-frame callback
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<HomeViewModel>().fetchProducts();
+    });
   }
 
   @override
@@ -57,11 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ImageSlider(
                 currentSlide: currentSlider,
                 onChange: (value) {
-                  setState(
-                    () {
-                      currentSlider = value;
-                    },
-                  );
+                  setState(() {
+                    currentSlider = value;
+                  });
                 },
               ),
               const SizedBox(height: 20),
@@ -75,9 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       // Check if the products list is not empty before accessing
-                      value1.products.isNotEmpty
-                          ? value1.products[0].title ?? 'Untitled'
-                          : 'No Products',
+                      "Special For You",
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.w800,

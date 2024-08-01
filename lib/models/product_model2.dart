@@ -12,15 +12,15 @@ class ProductModel {
   int? iV;
 
   ProductModel(
-      {this.title,
-      this.description,
-      this.review,
-      this.image,
-      this.seller,
-      this.price,
-      this.category,
-      this.rate,
-      this.quandity,
+      {required this.title,
+      required this.description,
+      required this.review,
+      required this.image,
+      required this.seller,
+      required this.price,
+      required this.category,
+      required this.rate,
+      required this.quandity,
       this.sId,
       this.iV});
 
