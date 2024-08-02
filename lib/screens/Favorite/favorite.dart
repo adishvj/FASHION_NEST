@@ -1,5 +1,6 @@
 import 'package:ecommerce_mobile_app/Provider/favorite_provider.dart';
 import 'package:flutter/material.dart';
+
 import '../../constants.dart';
 
 class Favorite extends StatefulWidget {
@@ -52,14 +53,14 @@ class _FavoriteState extends State<Favorite> {
                                     color: kcontentColor,
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: Image.asset(favoriteItems.image),
+                                  child: Image.network(favoriteItems.image!),
                                 ),
                                 const SizedBox(width: 10),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      favoriteItems.title,
+                                      favoriteItems.title!,
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16,
@@ -67,7 +68,7 @@ class _FavoriteState extends State<Favorite> {
                                     ),
                                     const SizedBox(height: 5),
                                     Text(
-                                      favoriteItems.category,
+                                      favoriteItems.category!,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.grey.shade400,
@@ -90,13 +91,12 @@ class _FavoriteState extends State<Favorite> {
                         ),
                         // for delete button
                         Positioned(
-                          top: 50,right: 35,
+                          top: 50,
+                          right: 35,
                           child: GestureDetector(
                             onTap: () {
                               finalList.removeAt(index);
-                              setState(() {
-                                
-                              });
+                              setState(() {});
                             },
                             child: const Icon(
                               Icons.delete,

@@ -1,4 +1,3 @@
-import 'package:ecommerce_mobile_app/models/product_model.dart';
 import 'package:ecommerce_mobile_app/screens/Home/Widget/product_cart.dart';
 import 'package:ecommerce_mobile_app/screens/Home/Widget/search_bar.dart';
 import 'package:flutter/material.dart';
@@ -32,14 +31,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final value1 = context.watch<HomeViewModel>();
-    List<List<Product>> selectcategories = [
-      all,
-      shoes,
-      beauty,
-      womenFashion,
-      jewelry,
-      menFashion
-    ];
+    // List<List<ProductModel>> selectcategories = [
+    //   all,
+    //   shoes,
+    //   beauty,
+    //   womenFashion,
+    //   jewelry,
+    //   menFashion
+    // ];
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -102,10 +101,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     childAspectRatio: 0.75,
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20),
-                itemCount: selectcategories[selectedIndex].length,
+                itemCount: value1.products.length,
                 itemBuilder: (context, index) {
                   return ProductCard(
-                    product: selectcategories[selectedIndex][index],
+                    product: value1.products[index],
                   );
                 },
               )

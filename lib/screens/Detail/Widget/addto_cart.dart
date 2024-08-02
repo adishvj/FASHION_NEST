@@ -1,9 +1,10 @@
 import 'package:ecommerce_mobile_app/Provider/add_to_cart_provider.dart';
-import 'package:ecommerce_mobile_app/models/product_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/product_model2.dart';
+
 class AddToCart extends StatefulWidget {
-  final Product product;
+  final ProductModel product;
   const AddToCart({super.key, required this.product});
 
   @override

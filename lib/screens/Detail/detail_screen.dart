@@ -1,5 +1,4 @@
 import 'package:ecommerce_mobile_app/constants.dart';
-import 'package:ecommerce_mobile_app/models/product_model.dart';
 import 'package:ecommerce_mobile_app/screens/Detail/Widget/addto_cart.dart';
 import 'package:ecommerce_mobile_app/screens/Detail/Widget/description.dart';
 import 'package:ecommerce_mobile_app/screens/Detail/Widget/detail_app_bar.dart';
@@ -7,8 +6,10 @@ import 'package:ecommerce_mobile_app/screens/Detail/Widget/image_slider.dart';
 import 'package:ecommerce_mobile_app/screens/Detail/Widget/items_details.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/product_model2.dart';
+
 class DetailScreen extends StatefulWidget {
-  final Product product;
+  final ProductModel product;
   const DetailScreen({super.key, required this.product});
 
   @override
@@ -36,7 +37,7 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
             // for detail image slider
             MyImageSlider(
-              image: widget.product.image,
+              image: widget.product.image!,
               onChange: (index) {
                 setState(() {
                   currentImage = index;
@@ -92,49 +93,11 @@ class _DetailScreenState extends State<DetailScreen> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                   ),
                   const SizedBox(height: 20),
-                  Row(
-                    children: List.generate(
-                      widget.product.colors.length,
-                      (index) => GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            currentColor = index;
-                          });
-                        },
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 300),
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: currentColor == index
-                                ? Colors.white
-                                : widget.product.colors[index],
-                            border: currentColor == index
-                                ? Border.all(
-                                    color: widget.product.colors[index],
-                                  )
-                                : null,
-                          ),
-                          padding: currentColor == index
-                              ? const EdgeInsets.all(2)
-                              : null,
-                          margin: const EdgeInsets.only(right: 10),
-                          child: Container(
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                                color: widget.product.colors[index],
-                                shape: BoxShape.circle),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+
                   const SizedBox(height: 25),
                   // for description
                   Description(
-                    description: widget.product.description,
+                    description: widget.product.description!,
                   )
                 ],
               ),

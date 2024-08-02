@@ -19,7 +19,7 @@ class MyImageSlider extends StatelessWidget {
         itemBuilder: (context, index) {
           return Hero(
             tag: image,
-            child: Image.asset(image),
+            child: Image.network(image),
           );
         },
       ),

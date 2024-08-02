@@ -92,14 +92,14 @@ class _CartScreenState extends State<CartScreen> {
                                 color: kcontentColor,
                               ),
                               // padding: const EdgeInsets.all(20),
-                              child: Image.asset(cartItems.image),
+                              child: Image.network(cartItems.image!),
                             ),
                             const SizedBox(width: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  cartItems.title,
+                                  cartItems.title!,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -109,7 +109,7 @@ class _CartScreenState extends State<CartScreen> {
                                   height: 5,
                                 ),
                                 Text(
-                                  cartItems.category,
+                                  cartItems.category!,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
@@ -165,7 +165,7 @@ class _CartScreenState extends State<CartScreen> {
                                 producrQuantity(Icons.add, index),
                                 const SizedBox(width: 10),
                                 Text(
-                                  cartItems.quantity.toString(),
+                                  cartItems.quandity.toString(),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,

@@ -1,9 +1,10 @@
 import 'package:ecommerce_mobile_app/constants.dart';
-import 'package:ecommerce_mobile_app/models/product_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/product_model2.dart';
+
 class ItemsDetails extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
   const ItemsDetails({super.key, required this.product});
 
   @override
@@ -12,7 +13,7 @@ class ItemsDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          product.title,
+          product.title!,
           style: const TextStyle(
             fontWeight: FontWeight.w800,
             fontSize: 25,
@@ -66,7 +67,7 @@ class ItemsDetails extends StatelessWidget {
                     ),
                     const SizedBox(width: 5),
                     Text(
-                      product.review,
+                      product.review!,
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 15,

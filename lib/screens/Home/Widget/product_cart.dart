@@ -1,11 +1,12 @@
 import 'package:ecommerce_mobile_app/Provider/favorite_provider.dart';
 import 'package:ecommerce_mobile_app/constants.dart';
-import 'package:ecommerce_mobile_app/models/product_model.dart';
 import 'package:ecommerce_mobile_app/screens/Detail/detail_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/product_model2.dart';
+
 class ProductCard extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
   const ProductCard({super.key, required this.product});
 
   @override
@@ -35,9 +36,9 @@ class ProductCard extends StatelessWidget {
                 const SizedBox(height: 5),
                 Center(
                   child: Hero(
-                    tag: product.image,
-                    child: Image.asset(
-                      product.image,
+                    tag: product.image!,
+                    child: Image.network(
+                      product.image!,
                       width: 150,
                       height: 120,
                       fit: BoxFit.cover,
@@ -48,7 +49,7 @@ class ProductCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    product.title,
+                    product.title!,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -66,20 +67,6 @@ class ProductCard extends StatelessWidget {
                           fontSize: 17,
                           color: Colors.white),
                     ),
-                    Row(
-                      children: List.generate(
-                        product.colors.length,
-                        (index) => Container(
-                          width: 18,
-                          height: 18,
-                          margin: const EdgeInsets.only(right: 4),
-                          decoration: BoxDecoration(
-                            color: product.colors[index],
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                    )
                   ],
                 )
               ],

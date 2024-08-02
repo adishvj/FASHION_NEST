@@ -25,9 +25,11 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (_) => FavoriteProvider(),
           ),
+
           ChangeNotifierProvider(
             create: (_) => HomeViewModel(),
           ),
+
           ChangeNotifierProvider(
             create: (_) => AuthViewModel(),
           ),

@@ -4,10 +4,10 @@ class ProductModel {
   String? review;
   String? image;
   String? seller;
-  int? price;
+  int price = 0;
   String? category;
   double? rate;
-  int? quandity;
+  int quandity = 0;
   String? sId;
   int? iV;
 

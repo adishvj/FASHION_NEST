@@ -1,10 +1,10 @@
-import 'package:ecommerce_mobile_app/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Provider/favorite_provider.dart';
+import '../../../models/product_model2.dart';
 
 class DetailAppBar extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
   const DetailAppBar({super.key, required this.product});
 
   @override
