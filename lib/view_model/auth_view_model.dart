@@ -14,7 +14,7 @@ class AuthViewModel extends ChangeNotifier {
     try {
       loading = true;
       notifyListeners();
-      await _authService.register(auth: auth);
+      await _authService.register(user: auth);
 
       loading = false;
       notifyListeners();

@@ -1,8 +1,11 @@
 import 'package:ecommerce_mobile_app/Provider/add_to_cart_provider.dart';
 import 'package:ecommerce_mobile_app/screens/Cart/check_out.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants.dart';
+import '../../services/auth_services.dart';
+import '../../view_model/cart_view_model.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -12,10 +15,30 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  Future<void>? _loadDataFuture;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadDataFuture = _loadData();
+  }
+
+  Future<void> _loadData() async {
+    final authService = AuthServices();
+    var id = await authService; // Wait for userId to load
+    print('-----------------------$id');
+    final cartProvider = Provider.of<CartViewModel>(context, listen: false);
+    if (authService.userId != null) {
+      cartProvider.fetchCartContents(authService.userId!, context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = CartProvider.of(context);
     final finalList = provider.cart;
+    final cartprovider = context.watch<CartViewModel>();
+    final authprovider = AuthServices();
     producrQuantity(IconData icon, int index) {
       return GestureDetector(
         onTap: () {
@@ -49,7 +72,9 @@ class _CartScreenState extends State<CartScreen> {
                     backgroundColor: Colors.white,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    print(cartprovider.cartData.length);
+                  },
                   icon: const Icon(
                     Icons.arrow_back_ios,
                   ),
@@ -68,9 +93,9 @@ class _CartScreenState extends State<CartScreen> {
           Expanded(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: finalList.length,
+              itemCount: cartprovider.cartData.length,
               itemBuilder: (context, index) {
-                final cartItems = finalList[index];
+                // final cartItems = finalList[index];
                 return Stack(
                   children: [
                     Padding(
@@ -92,14 +117,15 @@ class _CartScreenState extends State<CartScreen> {
                                 color: kcontentColor,
                               ),
                               // padding: const EdgeInsets.all(20),
-                              child: Image.network(cartItems.image!),
+                              child: Image.network(
+                                  cartprovider.cartData[index].image ?? ""),
                             ),
                             const SizedBox(width: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  cartItems.title!,
+                                  cartprovider.cartData[index].title!,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -109,7 +135,7 @@ class _CartScreenState extends State<CartScreen> {
                                   height: 5,
                                 ),
                                 Text(
-                                  cartItems.category!,
+                                  cartprovider.cartData[index].category!,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
@@ -117,7 +143,7 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  "\$${cartItems.price}",
+                                  "\$${cartprovider.cartData[index].price ?? ""}",
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
@@ -165,7 +191,9 @@ class _CartScreenState extends State<CartScreen> {
                                 producrQuantity(Icons.add, index),
                                 const SizedBox(width: 10),
                                 Text(
-                                  cartItems.quandity.toString(),
+                                  cartprovider.cartData[index].quandity
+                                          .toString() ??
+                                      "",
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,

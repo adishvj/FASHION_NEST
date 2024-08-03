@@ -8,23 +8,20 @@ import '../models/product_model2.dart';
 
 class CartService {
   // Add product to cart
-  Future<void> addProductToCart({
-    required String userid,
-    required ProductModel product,
-  }) async {
+  Future<void> addProductToCart(
+      {required String userid, required ProductModel product}) async {
     final Uri url = Uri.parse('$baseurl/api/cart/addItem');
-
+    print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb${product.sId}");
     final Map<String, dynamic> cartData = {
-      'userid': userid,
-      'productid': product.sId,
+      'userId': userid,
+      'productId': product.sId,
+      'quantity': product.quandity.toString()
     };
 
     try {
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode(cartData),
-      );
+      final response = await http.post(url, body: cartData);
+      print(response.statusCode);
+      print(response.body);
 
       if (response.statusCode == 201) {
         print('Product added to cart successfully');
@@ -33,16 +30,19 @@ class CartService {
         throw Exception('Failed to add product to cart');
       }
     } catch (e) {
+      print(e);
       throw Exception('An error occurred: $e');
     }
   }
 
   // Fetch cart contents for a user
   Future<List<CartModel>> getCartContents(String userid) async {
-    final Uri url = Uri.parse('$baseurl/api/cart/viewCart/:userId');
+    final Uri url = Uri.parse('$baseurl/api/cart/viewCart/$userid');
 
     try {
       final response = await http.get(url);
+      print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+      print(response.body);
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);

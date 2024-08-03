@@ -1,7 +1,9 @@
-import 'package:ecommerce_mobile_app/Provider/add_to_cart_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../models/product_model2.dart';
+import '../../../services/auth_services.dart';
+import '../../../view_model/cart_view_model.dart';
 
 class AddToCart extends StatefulWidget {
   final ProductModel product;
@@ -16,7 +18,10 @@ class _AddToCartState extends State<AddToCart> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = CartProvider.of(context);
+    final cartprovider = context.watch<CartViewModel>();
+    final authservise = AuthServices();
+
+    // final provider = CartProvider.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
@@ -78,7 +83,20 @@ class _AddToCartState extends State<AddToCart> {
             ),
             GestureDetector(
               onTap: () {
-                provider.toogleFavorite(widget.product);
+                print(authservise.userId);
+                ProductModel newproduct = ProductModel(
+                    title: widget.product.title,
+                    image: widget.product.image,
+                    price: widget.product.price,
+                    sId: widget.product.sId,
+                    quandity: widget.product.quandity);
+
+                cartprovider.addProductToCart(
+                    userid: authservise.userId!,
+                    product: newproduct,
+                    context: context);
+
+                // provider.toogleFavorite(widget.product);
                 // if items is add then show this snackbar
                 const snackBar = SnackBar(
                   content: Text(

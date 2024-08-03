@@ -13,13 +13,13 @@ class ProductModel {
 
   ProductModel(
       {required this.title,
-      required this.description,
-      required this.review,
+      this.description,
+      this.review,
       required this.image,
-      required this.seller,
+      this.seller,
       required this.price,
-      required this.category,
-      required this.rate,
+      this.category,
+      this.rate,
       required this.quandity,
       this.sId,
       this.iV});

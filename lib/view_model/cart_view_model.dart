@@ -27,6 +27,7 @@ class CartViewModel extends ChangeNotifier {
           content: Text("Product added to cart successfully"),
         ),
       );
+
       Navigator.pop(context);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -52,8 +53,9 @@ class CartViewModel extends ChangeNotifier {
 
       // Populate cartData with the latest items
       for (var cartItem in cartItems) {
-        cartData.add(cartItem.productId! as ProductModel);
+        cartData.add(cartItem.productId!);
       }
+      print("hiiiiiiiiiiiiiiii${cartData.length}");
 
       notifyListeners();
     } catch (e) {
