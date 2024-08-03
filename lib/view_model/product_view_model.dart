@@ -41,6 +41,11 @@ import '../services/product_service.dart';
 class HomeViewModel extends ChangeNotifier {
   bool loading = false;
   List<ProductModel> products = [];
+  List<ProductModel> shoes = [];
+  List<ProductModel> beauty = [];
+  List<ProductModel> womenFashion = [];
+  List<ProductModel> jewelry = [];
+  List<ProductModel> menFashion = [];
 
   final _productService = ProductServices();
 
@@ -50,6 +55,18 @@ class HomeViewModel extends ChangeNotifier {
 
     try {
       products = await _productService.getProducts();
+      shoes = products.where((product) => product.category == 'shoes').toList();
+      beauty =
+          products.where((product) => product.category == 'beauty').toList();
+      womenFashion = products
+          .where((product) => product.category == 'womenFashion')
+          .toList();
+      jewelry =
+          products.where((product) => product.category == 'jewelry').toList();
+      menFashion = products
+          .where((product) => product.category == 'menFashion')
+          .toList();
+
       print(products);
       loading = false;
       notifyListeners();

@@ -101,11 +101,30 @@ class _HomeScreenState extends State<HomeScreen> {
                     childAspectRatio: 0.75,
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20),
-                itemCount: value1.products.length,
+                itemCount: selectedIndex == 0
+                    ? value1.products.length
+                    : selectedIndex == 1
+                        ? value1.shoes.length
+                        : selectedIndex == 2
+                            ? value1.beauty.length
+                            : selectedIndex == 3
+                                ? value1.womenFashion.length
+                                : selectedIndex == 4
+                                    ? value1.jewelry.length
+                                    : value1.menFashion.length,
                 itemBuilder: (context, index) {
                   return ProductCard(
-                    product: value1.products[index],
-                  );
+                      product: selectedIndex == 0
+                          ? value1.products[index]
+                          : selectedIndex == 1
+                              ? value1.shoes[index]
+                              : selectedIndex == 2
+                                  ? value1.beauty[index]
+                                  : selectedIndex == 3
+                                      ? value1.womenFashion[index]
+                                      : selectedIndex == 4
+                                          ? value1.jewelry[index]
+                                          : value1.menFashion[index]);
                 },
               )
             ],
