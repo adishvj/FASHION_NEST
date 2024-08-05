@@ -1,13 +1,25 @@
-import 'package:ecommerce_mobile_app/Provider/add_to_cart_provider.dart';
 import 'package:ecommerce_mobile_app/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_model/cart_view_model.dart';
 
 class CheckOutBox extends StatelessWidget {
   const CheckOutBox({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final provider = CartProvider.of(context);
+    final cartprovider = context.watch<CartViewModel>();
+    double getTotalPrice() {
+      double total = 0.0;
+      for (var item in cartprovider.cartItems) {
+        double price = item.productId?.price?.toDouble() ?? 0.0;
+        int qty = item.quantity ?? 0;
+        total += price * qty;
+      }
+      return total;
+    }
+
     return Container(
       height: 300,
       width: double.infinity,
@@ -65,7 +77,7 @@ class CheckOutBox extends StatelessWidget {
                 ),
               ),
               Text(
-                "\$${provider.totalPrice()}",
+                "\$${getTotalPrice().toStringAsFixed(2)}",
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -87,7 +99,7 @@ class CheckOutBox extends StatelessWidget {
                 ),
               ),
               Text(
-                "\$${provider.totalPrice()}",
+                "\$${getTotalPrice().toStringAsFixed(2)}",
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,

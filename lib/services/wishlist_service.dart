@@ -10,14 +10,12 @@ class CartService {
   // Add product to cart
   Future<void> addProductToCart(
       {required String userid, required ProductModel product}) async {
-    final Uri url = Uri.parse('$baseurl/api/cart/addItem');
+    final Uri url = Uri.parse('$baseurl/api/wish/addItemWishlist');
     print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb${product.sId}");
-    print("fffffffffffffffffffffffffffffffffff${product.category}");
 
     final Map<String, dynamic> cartData = {
       'userId': userid,
       'productId': product.sId,
-      'quantity': product.quandity.toString()
     };
 
     try {
@@ -26,10 +24,10 @@ class CartService {
       print(response.body);
 
       if (response.statusCode == 201) {
-        print('Product added to cart successfully');
+        print('Product added to wishlist successfully');
       } else {
         print('3');
-        throw Exception('Failed to add product to cart');
+        throw Exception('Failed to add product to wishlist');
       }
     } catch (e) {
       print(e);
@@ -39,7 +37,7 @@ class CartService {
 
   // Fetch cart contents for a user
   Future<List<CartModel>> getCartContents(String userid) async {
-    final Uri url = Uri.parse('$baseurl/api/cart/viewCart/$userid');
+    final Uri url = Uri.parse('$baseurl/api/wish/viewWishlist/$userid');
 
     try {
       final response = await http.get(url);
@@ -68,61 +66,44 @@ class CartService {
     }
   }
 
-  // Remove product from cart
-  Future<void> removeProductFromCart({
-    required String userid,
-    required String productId,
-  }) async {
-    final Uri url =
-        Uri.parse('$baseurl/api/cart/removeFromCart/$userid/$productId');
-    final Map<String, dynamic> cartData = {
-      'userid': userid,
-      'productid': productId,
-    };
-
-    print(userid);
-    print(productId);
-
-    try {
-      final response = await http.delete(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode(cartData),
-      );
-
-      if (response.statusCode == 200) {
-        print('Product removed from cart successfully');
-      } else {
-        throw Exception('Failed to remove product from cart-');
-      }
-    } catch (e) {
-      throw Exception('An error occurred: $e');
-    }
-  }
+  // // Remove product from cart
+  // Future<void> removeProductFromCart({
+  //   required String userid,
+  //   required String productId,
+  // }) async {
+  //   final Uri url =
+  //       Uri.parse('$baseurl/api/cart/removeFromCart/$userid/$productId');
+  //   final Map<String, dynamic> cartData = {
+  //     'userid': userid,
+  //     'productid': productId,
+  //   };
+  //
+  //   print(userid);
+  //   print(productId);
+  //
+  //   try {
+  //     final response = await http.delete(
+  //       url,
+  //       headers: {'Content-Type': 'application/json'},
+  //       body: json.encode(cartData),
+  //     );
+  //
+  //     if (response.statusCode == 200) {
+  //       print('Product removed from cart successfully');
+  //     } else {
+  //       throw Exception('Failed to remove product from cart-');
+  //     }
+  //   } catch (e) {
+  //     throw Exception('An error occurred: $e');
+  //   }
+  // }
 
   //
   Future<bool> deleteItem(String itemId) async {
     final response = await http.delete(
-      Uri.parse('$baseurl/api/cart/removeItem/$itemId'),
+      Uri.parse('$baseurl/api/cart/removeItemWishlist/$itemId'),
     );
 
     return response.statusCode == 200;
-  }
-
-  static Future<void> updateCartItemQuantity(
-      String itemId, int newQuantity) async {
-    final url = Uri.parse('$baseurl/api/cart/updateItem/$itemId');
-    final response = await http.put(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({'quantity': newQuantity}),
-    );
-
-    print('Status code: ${response.statusCode}');
-    print('Response body: ${response.body}');
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to update cart item quantity');
-    }
   }
 }
