@@ -4,6 +4,7 @@ import 'package:ecommerce_mobile_app/screens/Auth/login.dart';
 import 'package:ecommerce_mobile_app/view_model/auth_view_model.dart';
 import 'package:ecommerce_mobile_app/view_model/cart_view_model.dart';
 import 'package:ecommerce_mobile_app/view_model/product_view_model.dart';
+import 'package:ecommerce_mobile_app/view_model/wishlist_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => CartViewModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => WishViewModel(),
           ),
         ],
         child: MaterialApp(

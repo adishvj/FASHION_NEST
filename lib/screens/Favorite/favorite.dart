@@ -1,7 +1,9 @@
-import 'package:ecommerce_mobile_app/Provider/favorite_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants.dart';
+import '../../services/auth_services.dart';
+import '../../view_model/wishlist_view_model.dart';
 
 class Favorite extends StatefulWidget {
   const Favorite({super.key});
@@ -11,10 +13,33 @@ class Favorite extends StatefulWidget {
 }
 
 class _FavoriteState extends State<Favorite> {
+  Future<void>? _loadDataFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDataFuture = _loadData();
+  }
+
+  Future<void> _loadData() async {
+    final authService = AuthServices();
+    var id = await authService; // Wait for userId to load
+    final wishProvider = Provider.of<WishViewModel>(context, listen: false);
+    if (authService.userId != null) {
+      await wishProvider.fetchWishContents(authService.userId!, context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final provider = FavoriteProvider.of(context);
-    final finalList = provider.favorites;
+    final wishprovider = context.watch<WishViewModel>();
+    // final provider = FavoriteProvider.of(context);
+    // final finalList = provider.favorites;
+
+    void deleteItem(String itemId) async {
+      await wishprovider.deleteWishItem(itemId, context);
+    }
+
     return Scaffold(
       backgroundColor: kcontentColor,
       appBar: AppBar(
@@ -29,9 +54,10 @@ class _FavoriteState extends State<Favorite> {
         children: [
           Expanded(
               child: ListView.builder(
-                  itemCount: finalList.length,
+                  itemCount: wishprovider.wishItems.length,
                   itemBuilder: (context, index) {
-                    final favoriteItems = finalList[index];
+                    var item = wishprovider.wishItems[index];
+                    // final favoriteItems = finalList[index];
                     return Stack(
                       children: [
                         Padding(
@@ -53,14 +79,15 @@ class _FavoriteState extends State<Favorite> {
                                     color: kcontentColor,
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: Image.network(favoriteItems.image!),
+                                  child: Image.network(
+                                      wishprovider.wishData[index].image ?? ""),
                                 ),
                                 const SizedBox(width: 10),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      favoriteItems.title!,
+                                      wishprovider.wishData[index].title!,
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16,
@@ -68,7 +95,7 @@ class _FavoriteState extends State<Favorite> {
                                     ),
                                     const SizedBox(height: 5),
                                     Text(
-                                      favoriteItems.category!,
+                                      wishprovider.wishData[index].category!,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.grey.shade400,
@@ -77,7 +104,7 @@ class _FavoriteState extends State<Favorite> {
                                     ),
                                     const SizedBox(height: 10),
                                     Text(
-                                      "\$${favoriteItems.price}",
+                                      "\$${wishprovider.wishData[index].price!}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,
@@ -93,15 +120,15 @@ class _FavoriteState extends State<Favorite> {
                         Positioned(
                           top: 50,
                           right: 35,
-                          child: GestureDetector(
-                            onTap: () {
-                              finalList.removeAt(index);
-                              setState(() {});
+                          child: IconButton(
+                            onPressed: () {
+                              String itemId = item.sId ?? '';
+                              deleteItem(itemId);
                             },
-                            child: const Icon(
+                            icon: Icon(
                               Icons.delete,
                               color: Colors.red,
-                              size: 25,
+                              size: 20,
                             ),
                           ),
                         ),

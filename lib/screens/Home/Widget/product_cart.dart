@@ -2,8 +2,11 @@ import 'package:ecommerce_mobile_app/Provider/favorite_provider.dart';
 import 'package:ecommerce_mobile_app/constants.dart';
 import 'package:ecommerce_mobile_app/screens/Detail/detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../models/product_model2.dart';
+import '../../../services/auth_services.dart';
+import '../../../view_model/wishlist_view_model.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel product;
@@ -11,6 +14,8 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final wishprovider = context.watch<WishViewModel>();
+    final authservise = AuthServices();
     final provider = FavoriteProvider.of(context);
 
     return GestureDetector(
@@ -88,6 +93,19 @@ class ProductCard extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   provider.toggleFavorite(product);
+
+                  print(authservise.userId);
+                  ProductModel newproduct = ProductModel(
+                      title: product.title,
+                      image: product.image,
+                      price: product.price,
+                      sId: product.sId,
+                      quandity: product.quandity);
+
+                  wishprovider.addProductToWish(
+                      userid: authservise.userId!,
+                      product: newproduct,
+                      context: context);
                 },
                 child: Icon(
                   provider.isExist(product)
