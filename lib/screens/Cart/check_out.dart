@@ -1,4 +1,5 @@
 import 'package:ecommerce_mobile_app/constants.dart';
+import 'package:ecommerce_mobile_app/screens/Cart/place_order.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -113,7 +114,15 @@ class CheckOutBox extends StatelessWidget {
                 backgroundColor: kprimaryColor,
                 minimumSize: const Size(double.infinity, 55),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CheckoutPage(
+                        total: getTotalPrice(),
+                      ),
+                    ));
+              },
               child: const Text(
                 "Check Out",
                 style: TextStyle(

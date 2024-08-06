@@ -39,6 +39,7 @@ dependencies:
   provider: ^6.1.2
   image_picker: ^1.1.2
   shared_preferences: ^2.3.1
+  line_awesome_flutter: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
     - images/men fashion/
     - images/jewelry/
     - images/others/
+    - images/img/
 
   #   - images/a_dot_ham.jpeg
 
