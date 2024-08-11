@@ -11,7 +11,8 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      child: Text('Sign Up For Free', style: TextStyle(color: Colors.black)),
+      child:
+          Text('Sign Up For Free', style: TextStyle(color: Colors.yellow[900])),
     );
   }
 }

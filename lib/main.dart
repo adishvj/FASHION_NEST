@@ -1,15 +1,19 @@
 import 'package:ecommerce_mobile_app/Provider/add_to_cart_provider.dart';
 import 'package:ecommerce_mobile_app/Provider/favorite_provider.dart';
-import 'package:ecommerce_mobile_app/screens/Auth/login.dart';
+import 'package:ecommerce_mobile_app/screens/Onboarding%20screen/Onboarding%20Screens.dart';
 import 'package:ecommerce_mobile_app/view_model/auth_view_model.dart';
 import 'package:ecommerce_mobile_app/view_model/cart_view_model.dart';
 import 'package:ecommerce_mobile_app/view_model/product_view_model.dart';
 import 'package:ecommerce_mobile_app/view_model/wishlist_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'constants.dart';
+
 void main() {
+  Gemini.init(apiKey: GEMINI_API_KEY);
   runApp(const MyApp());
 }
 
@@ -47,7 +51,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             textTheme: GoogleFonts.mulishTextTheme(),
           ),
-          home: Login(),
+          home: OnBoardingScreen(),
         ),
       );
 }

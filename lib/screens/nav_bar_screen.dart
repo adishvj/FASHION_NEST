@@ -2,6 +2,7 @@ import 'package:ecommerce_mobile_app/screens/Cart/cart_screen.dart';
 import 'package:ecommerce_mobile_app/screens/Home/home_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'ChatBot/chatscreen.dart';
 import 'Favorite/favorite.dart';
 import 'Profile/ProfilePage.dart';
 
@@ -15,7 +16,7 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int cuttentIndex = 2;
   List screens = const [
-    Scaffold(),
+    ChatbotScreen(),
     Favorite(),
     HomeScreen(),
     CartScreen(),
@@ -57,7 +58,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 });
               },
               icon: Icon(
-                Icons.grid_view_outlined,
+                Icons.chat_bubble_outline_outlined,
                 size: 30,
                 color: cuttentIndex == 0 ? Colors.yellow[900] : Colors.white,
               ),

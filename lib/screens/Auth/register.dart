@@ -24,6 +24,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -47,12 +48,12 @@ class _SignUpState extends State<SignUp> {
             ),
           ],
         ),
-        backgroundColor: Color(0xFFF8F9FA),
+        backgroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            color: Color(0xFFF8F9FA),
+            color: Colors.black,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Form(
@@ -66,16 +67,16 @@ class _SignUpState extends State<SignUp> {
                     Text(
                       'Create Account',
                       style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Airbnb",
-                      ),
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Airbnb",
+                          color: Colors.white),
                     ),
                     Text(
                       "Let's Create Account Together",
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.grey,
+                        color: Colors.white,
                       ),
                     ),
 
@@ -185,7 +186,7 @@ class _SignUpState extends State<SignUp> {
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
+                                backgroundColor: Colors.yellow[900],
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),

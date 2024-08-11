@@ -26,6 +26,7 @@ class _LoginState extends State<Login> {
     print(height);
 
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -49,13 +50,12 @@ class _LoginState extends State<Login> {
             // Add some spacing if needed
           ],
         ),
-        backgroundColor:
-            Color(0xFFF8F9FA), // Set the background color of the AppBar
+        backgroundColor: Colors.black, // Set the background color of the AppBar
       ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            color: Color(0xFFF8F9FA),
+            color: Colors.black,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Form(
@@ -71,15 +71,15 @@ class _LoginState extends State<Login> {
                     Text(
                       'Hello Again!',
                       style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                     Text(
                       "Welcome Back You've Been Missed!",
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.grey,
+                        color: Colors.white,
                       ),
                     ),
 
@@ -112,7 +112,7 @@ class _LoginState extends State<Login> {
                         },
                         child: Text(
                           'Recovery Password',
-                          style: TextStyle(color: Color(0xFF707B81)),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
@@ -122,7 +122,7 @@ class _LoginState extends State<Login> {
                       builder: (context, value, child) => value.loading
                           ? Center(
                               child: CircularProgressIndicator(
-                                color: Colors.blue,
+                                color: Colors.yellow[900],
                               ),
                             )
                           : ElevatedButton(
@@ -135,7 +135,7 @@ class _LoginState extends State<Login> {
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
+                                backgroundColor: Colors.yellow[900],
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
@@ -180,7 +180,7 @@ class _LoginState extends State<Login> {
                       children: [
                         Text(
                           "Don't Have An Account?",
-                          style: TextStyle(color: Color(0xFF707B81)),
+                          style: TextStyle(color: Colors.white),
                         ),
                         CustomButton(
                           onPressed: () {
